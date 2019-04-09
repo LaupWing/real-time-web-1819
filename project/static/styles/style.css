@@ -1,21 +1,31 @@
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { 
-    font: 13px Helvetica, Arial; 
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
 }
-form { 
-    background: #000; 
+body {
+    height: 100vh; 
+    font-family: 'Concert One', cursive;
+    background: lightblue;
+}
+form#chat {
     padding: 3px; 
     position: fixed; 
     bottom: 0; 
     width: 100%; 
 }
-form input { 
+form#chat h2{
+    width: 10%;
+    display: inline-block;
+    text-align: center;
+}
+form#chat input { 
     border: 0; 
     padding: 10px; 
-    width: 90%; 
+    width: 80%; 
     margin-right: .5%; 
 }
-form button { 
+form#chat button { 
     width: 9%; 
     background: rgb(130, 224, 255); 
     border: none; 
@@ -28,3 +38,15 @@ form button {
 }
 #messages li { padding: 5px 10px; }
 #messages li:nth-child(odd) { background: #eee; }  
+.centering{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+#intro form{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 200px;
+}
