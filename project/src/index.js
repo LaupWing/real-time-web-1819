@@ -13,20 +13,31 @@ app
 // The variable io is gonna listen to a event called connection
 // Every client has an instance of a socket that has been made
 // so every client has a diffrent socket 
-io.on('connection', function(socket){
+// let clients = []
+let clients ={}
+io.on('connection', (socket)=>{
     console.log('a user connected', socket.id);
-    socket.on('disconnect', function(){
+    socket.on('disconnect', ()=>{
         console.log('user disconnected');
-      });
-    socket.on('chat message', function(msg){
-        console.log('message: ' + msg);
     });
-    // io.emit('some event', { for: 'everyone' });
-    socket.on('chat message', function(msg){
-        io.emit('chat message', msg);
-      });
+    socket.on('chat message', (msg)=>{
+        console.log(clients[socket.id].name+' message: ' + msg);
+        const chatobj = {
+            user: clients[socket.id].name,
+            msg
+        }
+        io.emit('chat message', chatobj);
+    });
     
-    socket.on('set name', function(name){
+    socket.on('set name', (name)=>{
+        // clients.push({
+            //     id: socket.id, 
+            //     name
+            // })
+        clients[socket.id] = {name}
+        
+        console.log(Object.entries(clients)[0][1].name)
+        console.log(clients)
         socket.emit('set name', name)
     })
     });
