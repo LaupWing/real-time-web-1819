@@ -13,7 +13,6 @@ app
 // The variable io is gonna listen to a event called connection
 // Every client has an instance of a socket that has been made
 // so every client has a diffrent socket 
-const array = io.sockets.clients()
 io.on('connection', function(socket){
     console.log('a user connected', socket.id);
     socket.on('disconnect', function(){
