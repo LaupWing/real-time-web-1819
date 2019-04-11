@@ -42,7 +42,18 @@ io.on('connection', (socket)=>{
     })
 
     socket.on('grant acces', (accesObj)=>{
-        
+        console.log(Object.entries(clients))
+        console.log(accesObj.acces)
+        const grantAccesTo = accesObj.acces
+            .map(acces=>{
+                return Object.entries(clients).map(array=>{
+                    console.log(array)
+                    if(acces === array[1].name){
+                        return array
+                    }
+                })
+            })
+        console.log(grantAccesTo)
     })
 });
 
