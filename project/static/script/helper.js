@@ -11,10 +11,12 @@ function sendValuetoSocket(el, socketobj, callbackobj){
         .addEventListener('submit', (e)=>{
             console.log('event triggerd')
             e.preventDefault()
-            socketobj.socket.emit(socketobj.customEvent, document.querySelector('input').value)
-            document.querySelector('input').value = ''
+            socketobj.socket.emit(socketobj.customEvent, {
+                offset  :   socketobj.offset,
+                value   :   document.querySelector('input#m').value 
+            })
+            document.querySelector('input#m').value = ''
             if(typeof callbackobj !== 'undefined'){
-                console.log('Callbackobj is defined')
                 callbackobj.callbackFunction(callbackobj.callbackParameter)
             }
         })

@@ -20,26 +20,44 @@ io.on('connection', (socket)=>{
     socket.on('disconnect', ()=>{
         console.log('user disconnected');
     });
-    socket.on('chat message', (msg)=>{
-        console.log(clients[socket.id].name+' message: ' + msg);
+    socket.on('chat message', (msgObj)=>{
+        console.log(clients[socket.id].name+' message: ' + msgObj.value);
         const chatobj = {
-            user: clients[socket.id].name,
-            msg
+            user    : clients[socket.id].name,
+            msg     : encode(msgObj.value, msgObj.offset),
         }
         io.emit('chat message', chatobj);
     });
     
-    socket.on('set name', (name)=>{
+    socket.on('set name', (setUserObj)=>{
         // clients.push({
             //     id: socket.id, 
             //     name
             // })
-        clients[socket.id] = {name}
-        
-        console.log(Object.entries(clients)[0][1].name)
+        clients[socket.id] = {name: setUserObj.value, offset: setUserObj.offset}
+        const userNames = Object.values(clients).map(user=>user.name)
+        socket.emit('set name', setUserObj.value)
+        io.emit('users', userNames)
         console.log(clients)
-        socket.emit('set name', name)
     })
-    });
+
+    socket.on('grant acces', (accesObj)=>{
+        
+    })
+});
+
+function encode (toEncode, offset) {
+    return [...toEncode].map(letter => {
+        return letter.charCodeAt(0) + Number(offset);
+    }).map(charcode => {
+        return String.fromCharCode(charcode);
+    }).join("");
+}
+
+function decode (toDecode, offset) {
+    return [...toDecode].map(letter => {
+        return String.fromCharCode(letter.charCodeAt(0) - Number(offset));
+    }).join("");
+}
 
 // http.listen(port, ()=>console.log(`Server is running on port ${port}`));
