@@ -14,7 +14,7 @@ app
 // Every client has an instance of a socket that has been made
 // so every client has a diffrent socket 
 // let clients = []
-let clients ={}
+let clients = {}
 io.on('connection', (socket)=>{
     console.log('a user connected', socket.id);
     socket.on('disconnect', ()=>{
@@ -30,7 +30,7 @@ io.on('connection', (socket)=>{
     });
     
     socket.on('set name', (setUserObj)=>{
-        // clients.push({
+            // clients.push({
             //     id: socket.id, 
             //     name
             // })
@@ -42,6 +42,7 @@ io.on('connection', (socket)=>{
     })
 
     socket.on('grant acces', (accesObj)=>{
+        console.log(clients)
         console.log(Object.entries(clients))
         console.log(accesObj.acces)
         const grantAccesTo = accesObj.acces
@@ -49,11 +50,12 @@ io.on('connection', (socket)=>{
                 return Object.entries(clients).map(array=>{
                     console.log(array)
                     if(acces === array[1].name){
+                        console.log('array object: ',array)
                         return array
                     }
                 })
             })
-        console.log(grantAccesTo)
+        console.log(grantAccesTo[0][0][1])
     })
 });
 
