@@ -43,7 +43,8 @@ function addCheckboxEvents(){
 
 socket.on('chat message', function(chatobj){
     const node = document.createElement('li')
-    const textNode = document.createTextNode(`${chatobj.user} saids: ${chatobj.msg}`)
+    node.classList.add(chatobj.user)
+    const textNode = document.createTextNode(`${chatobj.user} says: ${chatobj.msg}`)
     node.appendChild(textNode)
     document.querySelector('#messages').appendChild(node)
 })
@@ -67,6 +68,23 @@ socket.on('users', function(names){
         addCheckboxEvents();
     }
 })
+
+socket.on('granted acces', function(key){
+    const msgs = document.querySelectorAll(`ul#messages li.${key.user}`)
+    // console.log(msg.innerText)
+    msgs.forEach(msg=>{
+        console.log(msg.innerText.split(":")[1])
+        const decodedMsg = msg.innerText.split(": ")[0]+ ": " + decode(msg.innerText.split(": ")[1],key.offset)
+        msg.innerText = decodedMsg;
+    })
+    console.log('granted acces', key)
+})
+
+function decode (toDecode, offset) {
+    return [...toDecode].map(letter => {
+        return String.fromCharCode(letter.charCodeAt(0) - Number(offset));
+    }).join("");
+}
 
 // The function sendValuetoSocket has these parameters because an instance of a socket will be made if i pass the whole socket line as a parameter
 function nameDefined(){
