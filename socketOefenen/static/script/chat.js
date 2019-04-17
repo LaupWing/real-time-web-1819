@@ -1,9 +1,6 @@
 import {removeElements, sendValuetoSocket} from './helper.js';
 
 const socket = io();
-
-// Vraagje aan wooter als je een callback meegeeft als parameter met daarin al een parameter dan word die geactiveerd.. hoe anders te fixen?
-
 const offset = ()=>{
     if(localStorage.getItem('offsetEncrypt')){
         return localStorage.getItem('offsetEncrypt')
@@ -13,7 +10,8 @@ const offset = ()=>{
         return localStorage.getItem('offsetEncrypt')
     }
 } 
-const init = () =>{
+
+const init = (() =>{
     sendValuetoSocket(
         '#intro form',
         {
@@ -25,8 +23,8 @@ const init = () =>{
             callbackFunction    :   removeElements,
             callbackParameter   :   document.body
         })
-}
-init()
+})()
+
 
 function addCheckboxEvents(){
     document.querySelectorAll('ul#users li input').forEach(input=>{

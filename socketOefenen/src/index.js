@@ -30,9 +30,6 @@ io.on('connection', (socket)=>{
     });
     
     socket.on('set name', (setUserObj)=>{
-            // clients.push({
-            //     id: socket.id, 
-            //     name
             // })
         clients[socket.id] = {name: setUserObj.value, offset: setUserObj.offset}
         const userNames = Object.values(clients).map(user=>user.name)
@@ -42,9 +39,6 @@ io.on('connection', (socket)=>{
     })
 
     socket.on('grant acces', (accesObj)=>{
-        console.log(clients)
-        console.log(Object.entries(clients))
-        console.log(accesObj.acces)
         const grantAccesTo = accesObj.acces
             .map(acces=>{
                 return Object.entries(clients).map(array=>{

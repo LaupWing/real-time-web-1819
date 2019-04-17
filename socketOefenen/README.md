@@ -8,6 +8,8 @@ Idea:
 Problems: 
 *   Multiple socket id's where made when i opened one instanced of the website
     *   Solution: Made an socket instance in my helper function. Index has an socket instance and helper has one. 
+
 ## Week 2:
+Iets
 
 ## Week 3:   
