@@ -51,38 +51,30 @@ io.on('connection', (socket)=>{
     
 
     socket.on('grant acces', (accesObj)=>{
+        const grantAccesTo = clients
+            .filter(client=>accesObj.acces
+                .find(accessId=>client.name === accessId))
         // console.log(accesObj)
-        // console.log(clients)
-        // const grantAccesTo = accesObj.acces
-        //     .map(acces=>{
-        //         console.log(clients)
-        //         console.log(clients.filter(client=>client.name === acces))
-        //         return clients.filter(client=>client.name === acces)
-        //     })
-        console.log(accesObj)
         // ASK WOOOOOTER this code below doesnt return a array in array but the code above does
 
         const offset = clients.filter(client=>client.name === accesObj.user)[0].offset
         
-        const grantAccesTo = []
-        accesObj.acces.forEach(acces=>{
-            clients.forEach(client=>{
-                if(acces === client.name){
-                    grantAccesTo.push(client)
-                }
-            })
+        // const grantAccesTo = []
+        // accesObj.acces.forEach(accessId=>{
+        //     clients.forEach(client=>{
+        //         if(accessId === client.name){
+        //             grantAccesTo.push(client)
+        //         }
+        //     })
+        // })
+
+        grantAccesTo.forEach(accesTo=>{
+            io.sockets.connected[accesTo.socketid].emit('granted acces', {
+                offset,
+                user: accesObj.user
+            });
         })
 
-        const decryptionObj = {
-            offset,
-            user: accesObj.user
-        }
-
-        grantAccesTo.forEach(acces=>{
-            io.sockets.connected[acces.socketid].emit('granted acces', decryptionObj);
-        })
-
-        console.log(grantAccesTo)
         // const grantAccesTo = accesObj.acces
         //     .map(acces=>{
         //         return Object.entries(clients).map(array=>{

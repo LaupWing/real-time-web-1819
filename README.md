@@ -1,3 +1,6 @@
+# NOTE IK GA VRIJDAG 19 APRIL 1400 UUR BEGINNEN MET README MAKEN VOOR MIJN EINDPRODUCT. 
+
+
 # Real-Time Web @cmda-minor-web · 2018-2019
 
 During this course you will learn how to build a **meaningful** real-time application. You will learn techniques to setup an open connection between the client and the server. This will enable you to send data in real-time both ways, at the same time.
